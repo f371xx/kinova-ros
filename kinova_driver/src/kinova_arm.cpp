@@ -210,6 +210,9 @@ KinovaArm::KinovaArm(KinovaComm &arm, const ros::NodeHandle &nodeHandle, const s
     /* Set up Subscribers*/
     joint_velocity_subscriber_ = node_handle_.subscribe("in/joint_velocity", 1,
                                  &KinovaArm::jointVelocityCallback, this);
+    joint_velocity_with_finger_velocity_subscriber_ = node_handle_.subscribe("in/joint_velocity_with_finger_velocity", 1,
+                                 &KinovaArm::jointVelocityWithFingerVelocityCallback, this);
+
     cartesian_velocity_subscriber_ = node_handle_.subscribe("in/cartesian_velocity", 1,
                                      &KinovaArm::cartesianVelocityCallback, this);
     cartesian_velocity_with_fingers_subscriber_ = node_handle_.subscribe("in/cartesian_velocity_with_fingers", 1,
@@ -316,6 +319,27 @@ void KinovaArm::jointVelocityCallback(const kinova_msgs::JointVelocityConstPtr& 
         joint_velocities_.Actuator7 = joint_vel->joint7;
 
         kinova_comm_.setJointVelocities(joint_velocities_);
+    }
+}
+
+void KinovaArm::jointVelocityWithFingerVelocityCallback(const kinova_msgs::JointVelocityWithFingerVelocityConstPtr& joint_vel)
+{
+    if (!kinova_comm_.isStopped())
+    {
+        joint_velocities_.Actuator1 = joint_vel->joint1;
+        joint_velocities_.Actuator2 = joint_vel->joint2;
+        joint_velocities_.Actuator3 = joint_vel->joint3;
+        joint_velocities_.Actuator4 = joint_vel->joint4;
+        joint_velocities_.Actuator5 = joint_vel->joint5;
+        joint_velocities_.Actuator6 = joint_vel->joint6;
+        joint_velocities_.Actuator7 = joint_vel->joint7;
+
+        FingerAngles fingers;
+        fingers.Finger1 = joint_vel->finger1;
+        fingers.Finger2 = joint_vel->finger2;
+        fingers.Finger3 = joint_vel->finger3;
+
+        kinova_comm_.setJointVelocitiesWithFingerVelocities(joint_velocities_, fingers);
     }
 }
 

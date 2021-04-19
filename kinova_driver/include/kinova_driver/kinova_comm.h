@@ -101,6 +101,7 @@ class KinovaComm
                         double speedJoint4567 = 20, int timeout = 0, bool push = true);
     void getJointVelocities(KinovaAngles &vels);
     void setJointVelocities(const AngularInfo& joint_vel);    
+    void setJointVelocitiesWithFingerVelocities(const AngularInfo& joint_vel, const FingersPosition& finger_vel);    
     void getJointAccelerations(AngularAcceleration &joint_acc);
     void getJointTorques(KinovaAngles &tqs);
     void getJointCurrent(AngularPosition &anguler_current);    

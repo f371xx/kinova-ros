@@ -17,6 +17,7 @@ add_message_files(
   FingerPosition.msg
   JointAngles.msg
   JointVelocity.msg
+  JointVelocityWithFingerVelocity.msg
   JointTorque.msg
   KinovaPose.msg
   PoseVelocity.msg

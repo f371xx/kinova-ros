@@ -23,6 +23,7 @@
 #include <kinova_msgs/Start.h>
 #include <kinova_msgs/HomeArm.h>
 #include <kinova_msgs/JointVelocity.h>
+#include <kinova_msgs/JointVelocityWithFingerVelocity.h>
 #include <kinova_msgs/PoseVelocity.h>
 #include <kinova_msgs/PoseVelocityWithFingers.h>
 #include <kinova_msgs/PoseVelocityWithFingerVelocity.h>
@@ -69,6 +70,7 @@ class KinovaArm
 
     //Subscriber callbacks --------------------------------------------------------
     void jointVelocityCallback(const kinova_msgs::JointVelocityConstPtr& joint_vel);
+    void jointVelocityWithFingerVelocityCallback(const kinova_msgs::JointVelocityWithFingerVelocityConstPtr& joint_vel);
     void cartesianVelocityCallback(const kinova_msgs::PoseVelocityConstPtr& cartesian_vel);
     void cartesianVelocityWithFingersCallback(const kinova_msgs::PoseVelocityWithFingersConstPtr& cartesian_vel_with_fingers);
 	void cartesianVelocityWithFingerVelocityCallback(const kinova_msgs::PoseVelocityWithFingerVelocityConstPtr& cartesian_vel_with_fingers);
@@ -123,6 +125,7 @@ class KinovaArm
 
     // Publishers, subscribers, services
     ros::Subscriber joint_velocity_subscriber_;
+    ros::Subscriber joint_velocity_with_finger_velocity_subscriber_;
     ros::Subscriber cartesian_velocity_subscriber_;
     ros::Subscriber cartesian_velocity_with_fingers_subscriber_;
     ros::Subscriber cartesian_velocity_with_finger_velocity_subscriber_;
